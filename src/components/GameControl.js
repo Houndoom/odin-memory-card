@@ -19,8 +19,9 @@ const GameControl = () => {
   historyRef.current = history;
 
   function _increaseScore() {
+    const currScore = scoreRef.current;
     setScore(score => score + 1);
-    setMaxScore(maxScore => Math.max(maxScore, scoreRef.current));
+    setMaxScore(maxScore => Math.max(maxScore, currScore + 1));
   }
   
   const selectCard = (e) => {
