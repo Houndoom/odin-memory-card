@@ -1,38 +1,59 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'Unown';
+  src: url('./fonts/Unown.ttf');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --red: #FF0000;
+  --yellow: #FFDE00;
+  --small-space: 10px;
+  --large-space: 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header {
+  font-family: 'Unown', sans-serif;
+  display: grid;
+  place-content: center;
+  font-size: 5rem;
+  background-color: var(--yellow);
+  padding: var(--small-space);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.score-display {
+  display: grid;
+  place-content: center;
+  grid-template-columns: auto auto;
+  background-color: var(--yellow);
 }
 
-.App-link {
-  color: #61dafb;
+.score {
+  margin: var(--small-space);
+  font-size: 1.2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gameboard {
+  background-color: var(--red);
+  padding: var(--large-space);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  row-gap: 50px;
+}
+
+.card {
+  font-family: 'Unown', sans-serif; 
+  font-size: 2rem;
+
+  width: 200px;
+  height: 250px;
+  background-color: rgb(200,200,200);
+  border-radius: 10px;
+  box-shadow: 5px 5px rgb(100,100,100, 0.7);
+
+  display: grid;
+  place-items: center;
+}
+
+.card img {
+  height: 150px;
 }
