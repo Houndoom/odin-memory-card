@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
 import ScoreDisplay from './ScoreDisplay';
 import Gameboard from './Gameboard';
-import EndScreen from './EndScreen';
+import Overlay from './Overlay';
 
 const GameControl = () => {
 
   const [score, setScore] = useState(0);
   const [maxScore, setMaxScore] = useState(0);
-  const [history, setHistory] = useState([]);
-  const [hideEnd, setHideEnd] = useState(true);
-  const [endMessage, setEndMessage] = useState('');
+  const [history, setHistory] = useState([]); // Array of selected pokemon
+  const [hideEnd, setHideEnd] = useState(true); // Show/hide end screen
+  const [endMessage, setEndMessage] = useState(); // Win/lose message
   
+  // To obtain updated references of state
   const scoreRef = useRef(score);
   scoreRef.current = score;
 
@@ -24,19 +25,20 @@ const GameControl = () => {
   
   const selectCard = (e) => {
     const id = parseInt(e.target.getAttribute('data-id'));
-    if (!historyRef.current.includes(id) && (historyRef.current.length < 150)) {
+    if (!historyRef.current.includes(id) && (historyRef.current.length < 150)) { // Success, if the history doesn't contain the selected Pokemon, and not all have been selected
       _increaseScore();
       setHistory(history => [...history, id]);
-    } else if (!historyRef.current.includes(id)) {
+    } else if (!historyRef.current.includes(id)) { // win: length = 150
       _increaseScore();
       setHideEnd(false);
-      setEndMessage('YOU WIN!')
-    } else {
+      setEndMessage(<div className='end-message'>YOU WIN</div>)
+    } else { // lose, if the history already contains the selected Pokemon
       setHideEnd(false);
-      setEndMessage('YOU LOSE')
+      setEndMessage(<div className='end-message'>YOU LOSE</div>)
     }
   }
 
+  // Restart button event
   const restart = (e) => {
     setScore(0);
     setHistory([]);
@@ -45,7 +47,7 @@ const GameControl = () => {
 
   return (
     <div className="game-control">
-      <EndScreen hide={hideEnd} restart={restart} message={endMessage} />
+      <Overlay hide={hideEnd} buttonFunc={restart} content={endMessage} buttonText='Play Again'/>
       <ScoreDisplay score={score} maxScore={maxScore} />
       <Gameboard selectCard={selectCard} />
     </div>
