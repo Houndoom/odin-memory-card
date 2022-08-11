@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import Overlay from './Overlay';
 
 function importAll(r) {
   let images = {};
@@ -46,6 +47,7 @@ const Gameboard = (props) => {
   const [pokemonIds, setPokemonIds] = useState(shuffle(Array.from(Array(152).keys()).slice(1)))
   const [pokemonNames, setPokemonNames] = useState([]);
   const [pokemonArray, setPokemonArray] = useState([]);
+  const [loadingDone, setLoadingDone] = useState(false); // Show/hide end screen
 
   /* Set up API calls for pokemon names only on mount */
 
@@ -59,6 +61,7 @@ const Gameboard = (props) => {
         names.push(info['forms'][0]['name']);
       }
         setPokemonNames(names);
+        setLoadingDone(true);
     }
     getNames();
   }, [])
@@ -69,8 +72,11 @@ const Gameboard = (props) => {
     renderCards(pokemonIds);
   }, [pokemonNames])
 
+  const loading = <div className='loading'>LOADING...</div>
+
   return (
     <div className="gameboard">
+      <Overlay hide={loadingDone} content={loading} />
       {pokemonArray}
     </div>
   )

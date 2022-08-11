@@ -14,7 +14,7 @@ const Header = () => {
     setHideEnd(true);
   }
 
-  const instructions = (
+  const instructions = ([
     <div className="instructions-text">
       <h1>Instructions</h1>
       <ol>
@@ -24,8 +24,9 @@ const Header = () => {
         <li>If you select a card that you previously selected, you lose the game.</li>
         <li>If you manage to select all the Pokémon without repeating, you win the game.</li>
       </ol>
-    </div>
-  )
+    </div>,
+    <button onClick={close}>Close</button>
+  ])
 
   return (
     <div className="header">
@@ -33,7 +34,7 @@ const Header = () => {
       <button className="instructions" onClick={showInstructions}>
         Show instructions
       </button>
-      <Overlay hide={hideEnd} buttonFunc={close} content={instructions} buttonText='Close'/>
+      <Overlay hide={hideEnd} content={instructions} />
     </div>
   )
 }

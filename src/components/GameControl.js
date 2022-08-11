@@ -9,7 +9,7 @@ const GameControl = () => {
   const [maxScore, setMaxScore] = useState(0);
   const [history, setHistory] = useState([]); // Array of selected pokemon
   const [hideEnd, setHideEnd] = useState(true); // Show/hide end screen
-  const [endMessage, setEndMessage] = useState(); // Win/lose message
+  const [endScreen, setEndScreen] = useState(); // Win/lose message
   
   // To obtain updated references of state
   const scoreRef = useRef(score);
@@ -24,6 +24,13 @@ const GameControl = () => {
     setMaxScore(maxScore => Math.max(maxScore, currScore + 1));
   }
   
+  const setEndMessage = (msg) => {
+    setEndScreen([
+      <div className='end-message'>{msg}</div>, 
+      <button onClick={restart}>Play Again</button>
+    ])
+  }
+
   const selectCard = (e) => {
     const id = parseInt(e.target.getAttribute('data-id'));
     if (!historyRef.current.includes(id) && (historyRef.current.length < 150)) { // Success, if the history doesn't contain the selected Pokemon, and not all have been selected
@@ -32,10 +39,10 @@ const GameControl = () => {
     } else if (!historyRef.current.includes(id)) { // win: length = 150
       _increaseScore();
       setHideEnd(false);
-      setEndMessage(<div className='end-message'>YOU WIN</div>)
+      setEndMessage('YOU WIN');
     } else { // lose, if the history already contains the selected Pokemon
       setHideEnd(false);
-      setEndMessage(<div className='end-message'>YOU LOSE</div>)
+      setEndMessage('YOU LOSE');
     }
   }
 
@@ -48,7 +55,7 @@ const GameControl = () => {
 
   return (
     <div className="game-control">
-      <Overlay hide={hideEnd} buttonFunc={restart} content={endMessage} buttonText='Play Again'/>
+      <Overlay hide={hideEnd} content={endScreen} />
       <ScoreDisplay score={score} maxScore={maxScore} />
       <Gameboard selectCard={selectCard} />
     </div>

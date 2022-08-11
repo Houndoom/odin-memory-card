@@ -19,6 +19,8 @@
   --small-space: 10px;
   --medium-space: 25px;
   --large-space: 50px;
+  --overlay-color: rgb(200, 200, 200);
+  --overlay-color-translucent: rgb(200, 200, 200, 0.8);
 }
 
 .header {
@@ -66,7 +68,7 @@
 
   width: 200px;
   height: 250px;
-  background-color: rgb(200,200,200);
+  background-color: var(--overlay-color);
   border-radius: 10px;
   box-shadow: 5px 5px rgb(100,100,100, 0.7);
 
@@ -102,10 +104,11 @@
 .instructions-text {
   font-family: 'Gameboy', sans-serif;
   font-size: 1rem;
-  background-color: rgb(200,200,200);
+  background-color: var(--overlay-color);
   display: grid;
   place-items: center;
   padding: var(--medium-space);
+  min-width: min-content;
   max-width: 50%;
 }
 
@@ -118,7 +121,7 @@ ol {
   font-family: 'Unown', sans-serif;
   font-size: 6rem;
   padding: var(--medium-space);
-  background-color: rgb(200,200,200, 0.8);
+  background-color: var(--overlay-color-translucent);
   display: grid;
   place-items: center;
 }
@@ -150,4 +153,12 @@ ol {
   place-content: center;
   font-family: 'Gameboy', sans-serif;
   background-color: var(--red);
+}
+
+.loading {
+  font-family: 'Gameboy', sans-serif;
+  font-size: 4rem;
+  background-color: var(--overlay-color-translucent);
+  padding: var(--large-space);
+  padding-bottom: var(--medium-space);
 }
